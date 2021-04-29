@@ -1,0 +1,47 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
+* {
+  margin: 0;
+  box-sizing: border-box;
+}
+
+.row {
+  display: flex;
+}
+
+.cell {
+  height: 18vh;
+  width: 101px;
+  background: #fff;
+  border: 1px solid #e8e8e8;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* padding: 5px; */
+}
+
+.cell__header {
+  font-size: 0.8em;
+  padding: 0;
+  font-weight: 700;
+  font-family: "Roboto", sans-serif;
+}
+
+.cell__header_month {
+  color: #757575;
+}
+
+.cell.gray {
+  background: #e8e8e8;
+}
+
+.image-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 7px;
+}
+
+.image {
+  width: 50px;
+  object-fit: contain;
+}

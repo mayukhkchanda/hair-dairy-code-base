@@ -1,0 +1,48 @@
+@import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css");
+
+@import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
+
+.top-header {
+  display: flex;
+  /*  width:220px; */
+  max-width: 100%;
+  justify-content: space-around;
+  background: #e4ffff;
+  padding: 7px;
+  font-family: "Roboto", sans-serif;
+  font-size: 1.175rem;
+  position: fixed;
+  top: 0vh;
+  z-index: 1;
+  width: 100%;
+}
+
+.left-floated {
+  position: relative;
+}
+
+.left-floated:before {
+  content: "\f060";
+  font-family: FontAwesome;
+  font-style: normal;
+  font-weight: normal;
+  text-decoration: inherit;
+  color: #000;
+  font-size: 18px;
+  padding-right: 0px;
+  position: absolute;
+  top: 4px;
+  right: 8rem;
+}
+
+.blue {
+  color: #007791;
+}
+
+.bold {
+  font-weight: 700;
+}
+
+.medium {
+  font-weight: 500;
+}

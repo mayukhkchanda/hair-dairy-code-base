@@ -1,0 +1,27 @@
+.calendar {
+  position: relative;
+  top: 6vh;
+}
+
+.calendar__header {
+  display: flex;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  font-size: 1.275rem;
+  font-weight: 500;
+  position: fixed;
+  background-color: #fff;
+  padding: 2px 0px;
+  z-index: 1;
+}
+
+.calendar__weekday {
+  width: 54px;
+}
+
+.calendar__body {
+  /* padding: 10vh 0px; */
+  position: relative;
+  top: 5vh;
+  z-index: 0;
+}
