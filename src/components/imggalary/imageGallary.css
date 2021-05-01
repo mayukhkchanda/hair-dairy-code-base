@@ -1,0 +1,50 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
+/* @import url("https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css"); */
+
+.App {
+  background-color: #111;
+}
+
+.image__slider {
+  display: flex;
+  overflow-y: hidden;
+  overflow-x: scroll;
+}
+
+.image__slider::-webkit-scrollbar {
+  display: none;
+}
+
+.image__showcase {
+  margin: 1rem;
+  border-radius: 10px;
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  min-width: 19rem;
+}
+
+.image__container {
+  overflow: hidden;
+}
+
+.image__content {
+  padding: 1.5rem;
+  text-align: left;
+  font-family: "Roboto", sans-serif;
+}
+
+/* .content__header {
+} */
+
+.content__text {
+  margin-top: 10px;
+}
+
+.image__display {
+  height: 460px;
+  object-fit: contain;
+}

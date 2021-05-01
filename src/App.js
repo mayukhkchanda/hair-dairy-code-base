@@ -1,6 +1,7 @@
 import "./App.css";
 import { useEffect, useState } from "react";
 import Calendar from "./components/Calendar";
+import ImageGallary from "./components/imggalary/ImageGallary";
 
 import { datesGenerator } from "dates-generator";
 
@@ -42,11 +43,16 @@ export default function App() {
 
   return (
     <div className="App">
-      <Calendar
+      {/* <Calendar
         dates={Dates}
         previousMonth={PreviousMonth}
         nextMonth={NextMonth}
-      />
+      /> */}
+      <ImageGallary
+        selectedImage={
+          "https://images.unsplash.com/photo-1554180842-41b1dd69d588?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyMjA4NzZ8MHwxfHNlYXJjaHw2fHxnaXJsc3xlbnwwfHx8fDE2MTk2ODA3NDk&ixlib=rb-1.2.1&q=80&w=200"
+        }
+      ></ImageGallary>
     </div>
   );
 }
