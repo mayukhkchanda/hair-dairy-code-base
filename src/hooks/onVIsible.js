@@ -4,7 +4,7 @@ export const OnVisible = (ref_el) => {
   const [isIntersecting, setIntersecting] = useState(false);
 
   useEffect(() => {
-    const ref_el_copy = ref_el;
+    const ref_el_node = ref_el?.current;
 
     const observer = new IntersectionObserver(
       ([entry], observer) => {
@@ -17,11 +17,11 @@ export const OnVisible = (ref_el) => {
       }
     );
 
-    if (ref_el_copy) observer.observe(ref_el_copy.current);
+    if (ref_el_node) observer.observe(ref_el_node);
 
     return () => {
-      console.log(ref_el_copy);
-      if (ref_el_copy) observer.unobserve(ref_el_copy?.current);
+      //console.log(ref_el_copy);
+      if (ref_el_node) observer.unobserve(ref_el_node);
     };
   }, [ref_el]);
 

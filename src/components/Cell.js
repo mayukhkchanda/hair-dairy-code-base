@@ -1,9 +1,24 @@
-import React from "react";
-import { imageSelected } from "../actions";
+import React, { useEffect } from "react";
+import { imageSelected, newImageAdded } from "../actions";
+import RoundedText from "./RoundedText";
 
 import { connect } from "react-redux";
+import Star from "./Star";
 
-const Cell = ({ date, isGray, cellData, imageSelected }) => {
+const Cell = ({ date, isGray, cellData, imageSelected, newImageAdded }) => {
+  useEffect(() => {
+    if (cellData && cellData !== {}) {
+      newImageAdded({
+        date: date.date,
+        month: date.month,
+        year: date.year,
+        stars: cellData?.stars,
+        url: cellData?.urls?.thumb,
+        alt_desc: cellData?.alt_description,
+      });
+    }
+  }, [cellData]);
+
   const getMonth = (month) => {
     switch (month) {
       case 0:
@@ -47,34 +62,49 @@ const Cell = ({ date, isGray, cellData, imageSelected }) => {
     }
   };
 
+  const getWeekday = () => {
+    const dateNo = new Date(date.year, date.month, date.date).getDay();
+
+    if (dateNo === 0 || dateNo === 6) return "S";
+    else if (dateNo === 1) return "M";
+    else if (dateNo === 2 || dateNo === 4) return "T";
+    else if (dateNo === 3) return "W";
+    else if (dateNo === 5) return "F";
+  };
+
   return (
-    <div className={`cell  ${isGray ? "gray" : ""} `}>
+    <div className={`cell ${isGray ? "gray" : ""}`}>
       <h3 className="cell__header">
-        {" "}
         {date.date}
         <span className="cell__header_month">
-          {" "}
           {`${date.date === 1 ? " " + getMonth(date.month) : ""}`}{" "}
         </span>
       </h3>
       <div className="image-container">
-        {/* <div className="image-stars">⭐⭐⭐⭐</div>
-         */}
-
         {cellData ? (
-          <img
-            onClick={() => {
-              //console.log(cellData?.urls?.thumb);
-              imageSelected({
-                date: date.date,
-                month: date.month,
-                url: cellData?.urls?.thumb,
-              });
-            }}
-            className="image"
-            src={cellData?.urls?.thumb}
-            alt={cellData?.alt_description}
-          />
+          <>
+            <Star starsCount={cellData?.stars}></Star>
+            <img
+              onClick={() => {
+                //console.log(cellData?.urls?.thumb);
+                imageSelected({
+                  date: date.date,
+                  month: date.month,
+                  url: cellData?.urls?.thumb,
+                });
+              }}
+              className="image"
+              src={cellData?.urls?.thumb}
+              alt={cellData?.alt_description}
+            />
+            <div className="cell_image_footer">
+              <RoundedText text={getWeekday()} fontSize="medium"></RoundedText>
+              <RoundedText
+                text={getMonth(date.month).substr(0, 2).toUpperCase()}
+                fontSize="small"
+              ></RoundedText>
+            </div>
+          </>
         ) : null}
       </div>
     </div>
@@ -83,4 +113,5 @@ const Cell = ({ date, isGray, cellData, imageSelected }) => {
 
 export default connect(null, {
   imageSelected,
+  newImageAdded,
 })(Cell);

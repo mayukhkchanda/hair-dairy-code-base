@@ -3,14 +3,9 @@ import Cell from "./Cell";
 import "./Row.css";
 
 const Row = ({ weekDates, data }) => {
-  //console.log(data);
   return (
     <div className="row">
       {weekDates.map((date, index) => {
-        //console.log(date);
-        /* console.log(
-          data[0][`${date.date}-${date.month + 1}-${date.year}`]?.user.name
-        ); */
         return (
           <Fragment key={JSON.stringify(date)}>
             <Cell

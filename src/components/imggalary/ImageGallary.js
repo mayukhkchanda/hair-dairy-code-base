@@ -1,5 +1,4 @@
 import React from "react";
-import imageList from "./data.json";
 import ImageCard from "./ImageCard";
 import "./imageGallary.css";
 
@@ -7,19 +6,25 @@ import { connect } from "react-redux";
 
 class ImageGallary extends React.Component {
   componentDidUpdate() {
-    // console.log(this.props.imageNode);
+    console.log(this.props.imagesList);
     this.props.imageNode.current.scrollIntoView();
   }
 
   render() {
+    const imageList = this.props.imagesList;
+
     const renderedList = imageList
-      .filter((el, index) => index < 10)
-      .map(({ urls, alt_description }) => {
+      //.filter((el, index) => index < 10)
+      .map(({ url, alt_desc, date, month, year, stars }) => {
         return (
           <ImageCard
-            key={urls.thumb}
-            urls={urls}
-            alt_description={alt_description}
+            key={url}
+            url={url}
+            alt_desc={alt_desc}
+            date={date}
+            month={month}
+            year={year}
+            stars={stars}
           ></ImageCard>
         );
       });
@@ -29,8 +34,8 @@ class ImageGallary extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-  // console.log(state);
-  return { imageNode: state.imageNode };
+  //console.log(state);
+  return { imageNode: state.imageNode, imagesList: state.imagesObjList };
 };
 
 export default connect(mapStateToProps)(ImageGallary);

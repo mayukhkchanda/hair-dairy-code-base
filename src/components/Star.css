@@ -1,0 +1,20 @@
+.fa.fa-star {
+  font-size: 10px;
+}
+
+.blue {
+  color: #52b2bf;
+}
+
+.grey {
+  color: #757575;
+}
+
+span.stars {
+  position: relative;
+  bottom: 5px;
+}
+
+.fa.fa-star.medium {
+  font-size: 16px;
+}

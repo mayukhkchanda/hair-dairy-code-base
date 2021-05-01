@@ -9,7 +9,7 @@
 }
 
 .cell {
-  height: 18vh;
+  height: 20.625vh;
   width: 101px;
   background: #fff;
   border: 1px solid #e8e8e8;
@@ -38,10 +38,18 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 7px;
 }
 
 .image {
-  width: 50px;
+  width: 51px;
   object-fit: contain;
+  position: relative;
+  bottom: 5px;
+}
+
+.cell_image_footer {
+  margin-top: 1px;
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
 }
