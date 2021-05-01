@@ -1,37 +1,17 @@
 import React, { useEffect, useRef, useState } from "react";
-
-//import VisibilitySensor from "react-visibility-sensor";
+import { onVisible } from "../../hooks/onVIsible";
 
 function ImageCard({ urls, alt_description }) {
   const [vis, setvis] = useState(false);
 
   const cardRef = useRef();
 
-  useEffect(() => {
-    const onScroll = () => {
-      const { left, width } = cardRef.current.getBoundingClientRect();
-      if (left > 0 && left + width < 375) {
-        setvis(true);
-      } else {
-        setvis(false);
-      }
-    };
-    window.addEventListener("scroll", onScroll);
+  const isVisible = onVisible(ref);
 
-    return () => {
-      window.removeEventListener("scroll", onScroll);
-    };
-  }, []);
-
-  /*  const onChange = (isVisible) => {
-    //console.log(isVisible);
-    setvis(isVisible);
-  };
- */
   return (
     <div
       ref={cardRef}
-      className={`image__showcase ${vis ? "vis" : "invis"}`}
+      className={`image__showcase ${isVisible ? "vis" : "invis"}`}
       key={urls.thumb}
     >
       <div className="image__container">
