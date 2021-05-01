@@ -4,8 +4,9 @@ import Calendar from "./components/Calendar";
 import ImageGallary from "./components/imggalary/ImageGallary";
 
 import { datesGenerator } from "dates-generator";
+import { connect } from "react-redux";
 
-export default function App() {
+const App = (selectedImage) => {
   const [Dates, setDates] = useState([]);
   const [PreviousMonth, setPreviousMonth] = useState([]);
   const [NextMonth, setNextMonth] = useState([]);
@@ -17,8 +18,8 @@ export default function App() {
     const thisMonth = today.getMonth();
 
     const body = {
-      thisYear,
-      thisMonth,
+      year: thisYear,
+      month: thisMonth,
       startingDay: 0,
     };
 
@@ -34,25 +35,36 @@ export default function App() {
 
     setDates(dates);
     setPreviousMonth(
-      datesGenerator({ thisMonth, previousMonth, startingDay: 0 }).dates
+      datesGenerator({ year: thisYear, month: previousMonth, startingDay: 0 })
+        .dates
     );
     setNextMonth(
-      datesGenerator({ thisMonth, nextMonth, startingDay: 0 }).dates
+      datesGenerator({ thisYear, thisMonth: nextMonth, startingDay: 0 }).dates
     );
   }, []);
 
-  return (
-    <div className="App">
-      {/* <Calendar
+  let displayEl = null;
+
+  //console.log(selectedImage);
+
+  if (selectedImage.image) {
+    displayEl = <ImageGallary></ImageGallary>;
+  } else {
+    displayEl = (
+      <Calendar
         dates={Dates}
         previousMonth={PreviousMonth}
         nextMonth={NextMonth}
-      /> */}
-      <ImageGallary
-        selectedImage={
-          "https://images.unsplash.com/photo-1554180842-41b1dd69d588?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyMjA4NzZ8MHwxfHNlYXJjaHw2fHxnaXJsc3xlbnwwfHx8fDE2MTk2ODA3NDk&ixlib=rb-1.2.1&q=80&w=200"
-        }
-      ></ImageGallary>
-    </div>
-  );
-}
+      />
+    );
+  }
+  return <div className="App">{displayEl}</div>;
+};
+
+const mapStateToProps = (state) => {
+  //console.log(state);
+
+  return { image: state.selectedImage };
+};
+
+export default connect(mapStateToProps, {})(App);

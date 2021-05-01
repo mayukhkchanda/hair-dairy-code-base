@@ -1,6 +1,9 @@
 import React from "react";
+import { imageSelected } from "../actions";
 
-const Cell = ({ date, isGray, cellData }) => {
+import { connect } from "react-redux";
+
+const Cell = ({ date, isGray, cellData, imageSelected }) => {
   const getMonth = (month) => {
     switch (month) {
       case 0:
@@ -61,7 +64,12 @@ const Cell = ({ date, isGray, cellData }) => {
         {cellData ? (
           <img
             onClick={() => {
-              console.log(cellData?.urls?.thumb);
+              //console.log(cellData?.urls?.thumb);
+              imageSelected({
+                date: date.date,
+                month: date.month,
+                url: cellData?.urls?.thumb,
+              });
             }}
             className="image"
             src={cellData?.urls?.thumb}
@@ -73,4 +81,6 @@ const Cell = ({ date, isGray, cellData }) => {
   );
 };
 
-export default Cell;
+export default connect(null, {
+  imageSelected,
+})(Cell);

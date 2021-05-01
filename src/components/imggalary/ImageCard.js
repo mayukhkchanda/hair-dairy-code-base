@@ -1,12 +1,23 @@
 import React, { useEffect, useRef, useState } from "react";
-import { onVisible } from "../../hooks/onVIsible";
+import { OnVisible } from "../../hooks/onVIsible";
+import { gotImageRef } from "../../actions";
 
-function ImageCard({ urls, alt_description }) {
+import { connect } from "react-redux";
+
+function ImageCard({ urls, alt_description, gotImageRef, selectedImg }) {
   const [vis, setvis] = useState(false);
 
   const cardRef = useRef();
 
-  const isVisible = onVisible(ref);
+  const isVisible = OnVisible(cardRef);
+
+  //console.log(selectedImg);
+
+  useEffect(() => {
+    if (selectedImg.url === urls.thumb) {
+      gotImageRef(cardRef);
+    }
+  }, []);
 
   return (
     <div
@@ -14,6 +25,7 @@ function ImageCard({ urls, alt_description }) {
       className={`image__showcase ${isVisible ? "vis" : "invis"}`}
       key={urls.thumb}
     >
+      <div className="gradient"></div>
       <div className="image__container">
         <img
           src={urls.thumb}
@@ -33,4 +45,10 @@ function ImageCard({ urls, alt_description }) {
   );
 }
 
-export default ImageCard;
+const mapStateToProps = (state) => {
+  //console.log(state);
+
+  return { selectedImg: state.selectedImage };
+};
+
+export default connect(mapStateToProps, { gotImageRef })(ImageCard);

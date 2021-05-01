@@ -3,8 +3,13 @@ import imageList from "./data.json";
 import ImageCard from "./ImageCard";
 import "./imageGallary.css";
 
+import { connect } from "react-redux";
+
 class ImageGallary extends React.Component {
-  componentDidMount() {}
+  componentDidUpdate() {
+    // console.log(this.props.imageNode);
+    this.props.imageNode.current.scrollIntoView();
+  }
 
   render() {
     const renderedList = imageList
@@ -23,4 +28,9 @@ class ImageGallary extends React.Component {
   }
 }
 
-export default ImageGallary;
+const mapStateToProps = (state) => {
+  // console.log(state);
+  return { imageNode: state.imageNode };
+};
+
+export default connect(mapStateToProps)(ImageGallary);

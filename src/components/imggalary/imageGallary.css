@@ -16,7 +16,7 @@
 }
 
 .image__showcase {
-  margin: 1rem;
+  margin: 1rem 0px;
   border-radius: 10px;
   background-color: #fff;
   display: flex;
@@ -25,6 +25,37 @@
   align-items: center;
   overflow: hidden;
   min-width: 19rem;
+
+  transition: transform 450ms ease;
+}
+
+.image__showcase .gradient {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.4);
+  height: 100%;
+  width: 100%;
+  display: block;
+  opacity: 1;
+}
+
+.image__showcase.vis {
+  transform: scale(1);
+}
+
+.image__showcase.vis .gradient {
+  transition: all 300ms ease;
+  opacity: 0;
+}
+
+.image__showcase.invis {
+  transform: scale(0.9);
+  transition: all 800ms ease;
+}
+
+.image__showcase.invis .gradient {
+  opacity: 1;
 }
 
 .image__container {

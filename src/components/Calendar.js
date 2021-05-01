@@ -7,7 +7,7 @@ import data from "../Data.json";
 const Calendar = ({ dates, previousMonth, nextMonth }) => {
   const weekdays = ["S", "M", "T", "W", "T", "F", "S"];
 
-  //console.log(nextMonth, " ", previousMonth);
+  //console.log(previousMonth);
   // console.log(data);
 
   return (
@@ -24,16 +24,20 @@ const Calendar = ({ dates, previousMonth, nextMonth }) => {
           })}
         </div>
 
-        {/* <div className="calendar__body">
-        {previousMonth.map((weekDates) => {
-          //console.log(weekDates);
-          return (
-            <React.Fragment key={JSON.stringify(weekDates)}>
-              <Row weekDates={weekDates} />
-            </React.Fragment>
-          );
-        })}
-      </div> */}
+        {
+          <div className="calendar__body">
+            {previousMonth
+              .filter((arr, index) => index !== previousMonth.length - 1)
+              .map((weekDates) => {
+                //console.log(weekDates);
+                return (
+                  <React.Fragment key={JSON.stringify(weekDates)}>
+                    <Row weekDates={weekDates} data={data} />
+                  </React.Fragment>
+                );
+              })}
+          </div>
+        }
 
         <div className="calendar__body">
           {dates.map((weekDates) => {
@@ -51,7 +55,7 @@ const Calendar = ({ dates, previousMonth, nextMonth }) => {
           //console.log(weekDates);
           return (
             <React.Fragment key={JSON.stringify(weekDates)}>
-              <Row weekDates={weekDates} />
+              <Row weekDates={weekDates} data={data} />
             </React.Fragment>
           );
         })}
