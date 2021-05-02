@@ -17,7 +17,7 @@ const Cell = ({ date, isGray, cellData, imageSelected, newImageAdded }) => {
         alt_desc: cellData?.alt_description,
       });
     }
-  }, [cellData]);
+  }, [cellData, date, newImageAdded]);
 
   const getMonth = (month) => {
     switch (month) {

@@ -25,3 +25,40 @@
   top: 5vh;
   z-index: 0;
 }
+
+.calendar.bottom {
+  max-height: 90vh;
+  overflow: hidden;
+}
+
+.rounded-plus {
+  width: 50px;
+  height: 50px;
+  background: #00bfff;
+  margin: 1rem;
+  border-radius: 50%;
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  z-index: 2;
+}
+
+.plus-text {
+  font-size: 50px;
+  position: absolute;
+  bottom: -5px;
+  color: #fff;
+  right: -0.9px;
+}
+
+@media all and (min-width: 700px) {
+  .calendar__weekday {
+    width: 101px;
+  }
+}
+
+@media all and (max-width: 700px) and (min-width: 500px) {
+  .calendar__weekday {
+    width: 14vw;
+  }
+}

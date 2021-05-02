@@ -3,7 +3,16 @@ import Row from "./Row";
 import data from "../Data.json";
 import { OnVisible } from "../hooks/onVIsible";
 
-const CalandarBody = ({ month, setHeaderMonth, setCurrentMonthRef }) => {
+import { currentMonthRefAct } from "../actions";
+
+import { connect } from "react-redux";
+
+const CalandarBody = ({
+  month,
+  setHeaderMonth,
+  currentMonthRefAct,
+  showFullMonth,
+}) => {
   //console.log(month);
 
   const monthRef = useRef(null);
@@ -14,21 +23,25 @@ const CalandarBody = ({ month, setHeaderMonth, setCurrentMonthRef }) => {
     if (currentMonthVis) {
       setHeaderMonth(month.forMonth);
     }
-  }, [currentMonthVis, month]);
+  }, [currentMonthVis, month, setHeaderMonth]);
 
   useEffect(() => {
     const currentMonth = new Date().getMonth();
 
-    if (month.forMonth === currentMonth) {
-      setCurrentMonthRef(monthRef);
+    if (currentMonth === month.forMonth) {
+      currentMonthRefAct(monthRef.current);
     }
-  }, [month]);
+  }, [month, currentMonthRefAct]);
 
   return (
     <div ref={monthRef} className="calendar__body">
       {month?.dates &&
         month?.dates
-          .filter((arr, index) => index !== month?.dates.length - 1)
+          .filter((arr, index) => {
+            if (showFullMonth) return true;
+
+            return index !== month?.dates.length - 1;
+          })
           .map((weekDates) => {
             //console.log(weekDates);
             return (
@@ -41,4 +54,4 @@ const CalandarBody = ({ month, setHeaderMonth, setCurrentMonthRef }) => {
   );
 };
 
-export default CalandarBody;
+export default connect(null, { currentMonthRefAct })(CalandarBody);

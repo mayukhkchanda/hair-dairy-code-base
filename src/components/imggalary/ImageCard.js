@@ -40,7 +40,7 @@ function ImageCard({
     if (selectedImg.url === url) {
       gotImageRef(cardRef);
     }
-  }, []);
+  }, [selectedImg.url, url, gotImageRef]);
 
   return (
     <div

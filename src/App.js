@@ -1,13 +1,16 @@
 import "./App.css";
-import { useEffect, useState } from "react";
+import React from "react";
 import Calendar from "./components/Calendar";
 import ImageGallary from "./components/imggalary/ImageGallary";
 
 import { datesGenerator } from "dates-generator";
 import { connect } from "react-redux";
 
-const App = (selectedImage) => {
+/* const App = ({ selectedImage, currentMonthNode }) => {
   const [months, setMonths] = useState([]);
+
+  //console.log(selectedImage);
+  //console.log(currentMonthNode);
 
   useEffect(() => {
     const today = new Date();
@@ -26,60 +29,78 @@ const App = (selectedImage) => {
         return { dates: dates, forMonth: index };
       });
 
-    //console.log(months);
-
     setMonths(months);
-    /*  const body = {
-      year: thisYear,
-      month: thisMonth,
-      startingDay: 0,
-    };
-
-    const {
-      dates,
-      previousYear,
-      previousMonth,
-      nextYear,
-      nextMonth,
-    } = datesGenerator(body);
-
-    //console.log(dates);
-
-    setDates({ dates: dates, forMonth: thisMonth });
-    setPreviousMonth({
-      dates: datesGenerator({
-        year: thisYear,
-        month: previousMonth,
-        startingDay: 0,
-      }).dates,
-      forMonth: previousMonth,
-    });
-    setNextMonth({
-      dates: datesGenerator({
-        year: thisYear,
-        month: nextMonth,
-        startingDay: 0,
-      }).dates,
-      forMonth: nextMonth,
-    }); */
   }, []);
 
   let displayEl = null;
-
-  //console.log(Dates);
-
-  if (selectedImage.image) {
+  if (selectedImage?.url) {
     displayEl = <ImageGallary></ImageGallary>;
-  } else {
-    displayEl = <Calendar months={months} />;
   }
-  return <div className="App">{displayEl}</div>;
-};
+
+  return (
+    <div className="App">
+      {displayEl}
+      <Calendar months={months} isBottom={selectedImage?.url ? true : false} />
+    </div>
+  );
+}; */
+
+class App extends React.Component {
+  state = { months: [] };
+
+  componentDidMount() {
+    const today = new Date();
+
+    const thisYear = today.getFullYear();
+    const thisMonth = today.getMonth();
+
+    const Months = Array(thisMonth + 1)
+      .fill({})
+      .map((_, index) => {
+        const { dates } = datesGenerator({
+          year: thisYear,
+          month: index,
+          startingDay: 0,
+        });
+        return { dates: dates, forMonth: index };
+      });
+
+    this.setState({ months: Months });
+  }
+
+  componentDidUpdate() {
+    // console.log(this.props.currentMonthNode);
+    if (this.props.currentMonthNode) {
+      this.props.currentMonthNode.scrollIntoView();
+    }
+  }
+
+  displayEl = () => {
+    if (this.props.selectedImage?.url) {
+      return <ImageGallary></ImageGallary>;
+    }
+    return null;
+  };
+  render() {
+    return (
+      <div className="App">
+        {this.displayEl()}
+        <Calendar
+          months={this.state.months}
+          isBottom={this.props.selectedImage?.url ? true : false}
+        />
+      </div>
+    );
+  }
+}
 
 const mapStateToProps = (state) => {
   //console.log(state);
 
-  return { image: state.selectedImage };
+  return {
+    selectedImage: state.selectedImage,
+    currentMonthNode: state.CurrentMonthNode,
+  };
 };
 
 export default connect(mapStateToProps, {})(App);
