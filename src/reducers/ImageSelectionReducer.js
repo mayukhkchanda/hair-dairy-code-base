@@ -9,12 +9,7 @@ import { IMAGE_SELECTED } from "../actions/types";
 export const ImageSelectionReducer = (state = null, action) => {
   switch (action.type) {
     case IMAGE_SELECTED:
-      return {
-        ...state,
-        date: action.payload.date,
-        month: action.payload.month,
-        url: action.payload.url,
-      };
+      return action.payload;
 
     default:
       return state;

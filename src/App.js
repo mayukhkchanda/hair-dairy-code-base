@@ -7,9 +7,7 @@ import { datesGenerator } from "dates-generator";
 import { connect } from "react-redux";
 
 const App = (selectedImage) => {
-  const [Dates, setDates] = useState({});
-  const [PreviousMonth, setPreviousMonth] = useState({});
-  const [NextMonth, setNextMonth] = useState({});
+  const [months, setMonths] = useState([]);
 
   useEffect(() => {
     const today = new Date();
@@ -17,7 +15,21 @@ const App = (selectedImage) => {
     const thisYear = today.getFullYear();
     const thisMonth = today.getMonth();
 
-    const body = {
+    const months = Array(thisMonth + 1)
+      .fill({})
+      .map((_, index) => {
+        const { dates } = datesGenerator({
+          year: thisYear,
+          month: index,
+          startingDay: 0,
+        });
+        return { dates: dates, forMonth: index };
+      });
+
+    //console.log(months);
+
+    setMonths(months);
+    /*  const body = {
       year: thisYear,
       month: thisMonth,
       startingDay: 0,
@@ -49,7 +61,7 @@ const App = (selectedImage) => {
         startingDay: 0,
       }).dates,
       forMonth: nextMonth,
-    });
+    }); */
   }, []);
 
   let displayEl = null;
@@ -59,13 +71,7 @@ const App = (selectedImage) => {
   if (selectedImage.image) {
     displayEl = <ImageGallary></ImageGallary>;
   } else {
-    displayEl = (
-      <Calendar
-        currentMonth={Dates}
-        previousMonth={PreviousMonth}
-        nextMonth={NextMonth}
-      />
-    );
+    displayEl = <Calendar months={months} />;
   }
   return <div className="App">{displayEl}</div>;
 };

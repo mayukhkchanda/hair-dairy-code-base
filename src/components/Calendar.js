@@ -1,32 +1,75 @@
-import React, { createRef } from "react";
-import Row from "./Row";
-import "./Calendar.css";
+import React, { createRef, useEffect, useState } from "react";
 import TopHeader from "./TopHeader";
-import data from "../Data.json";
-import { OnVisible } from "../hooks/onVIsible";
+import CalandarBody from "./CalandarBody";
+import "./Calendar.css";
 
-const Calendar = ({ currentMonth, previousMonth, nextMonth }) => {
+/* const Calendar = ({ months }) => {
   const weekdays = ["S", "M", "T", "W", "T", "F", "S"];
 
-  //console.log(currentMonth);
-  // console.log(data);
+  const [headerMonth, setHeaderMonth] = useState(null);
 
-  const curMonthRef = createRef(null);
-  const prevMonthRef = createRef(null);
+  const [currentMonthRef, setCurrentMonthRef] = useState(null);
 
-  const previousMonthVis = OnVisible(prevMonthRef, 5);
-  const currentMonthVis = OnVisible(curMonthRef, 5);
+  const getMonth = (month) => {
+    switch (month) {
+      case 0:
+        return "Jan";
 
-  //console.log("Previous month -> " + previousMonthVis);
-  //console.log("Current  month -> " + currentMonthVis);
+      case 1:
+        return "Feb";
 
-  let month = null;
-  if (currentMonthVis) month = "May";
-  else if (previousMonthVis) month = "Apr";
+      case 2:
+        return "Mar";
+
+      case 3:
+        return "Apr";
+
+      case 4:
+        return "May";
+
+      case 5:
+        return "Jun";
+
+      case 6:
+        return "Jul";
+
+      case 7:
+        return "Aug";
+
+      case 8:
+        return "Sep";
+
+      case 9:
+        return "Oct";
+
+      case 10:
+        return "Nov";
+
+      case 11:
+        return "Dec";
+
+      default:
+        return "";
+    }
+  };
+
+  const renderMonths = () => {
+    return months.map((month, index) => {
+      //console.log(month);
+
+      return (
+        <CalandarBody
+          key={index}
+          month={month}
+          setHeaderMonth={setHeaderMonth}
+        ></CalandarBody>
+      );
+    });
+  };
 
   return (
     <>
-      <TopHeader month={month}></TopHeader>
+      <TopHeader headerMonth={getMonth(headerMonth)}></TopHeader>
       <div className="calendar">
         <div className="calendar__header">
           {weekdays.map((weekday, index) => {
@@ -38,45 +81,114 @@ const Calendar = ({ currentMonth, previousMonth, nextMonth }) => {
           })}
         </div>
 
-        <div ref={prevMonthRef} className="calendar__body">
-          {previousMonth?.dates &&
-            previousMonth?.dates
-              .filter((arr, index) => index !== previousMonth?.dates.length - 1)
-              .map((weekDates) => {
-                //console.log(weekDates);
-                return (
-                  <React.Fragment key={JSON.stringify(weekDates)}>
-                    <Row weekDates={weekDates} data={data} />
-                  </React.Fragment>
-                );
-              })}
-        </div>
-
-        <div ref={curMonthRef} className="calendar__body">
-          {currentMonth?.dates &&
-            currentMonth?.dates.map((weekDates) => {
-              //console.log(weekDates);
-              return (
-                <React.Fragment key={JSON.stringify(weekDates)}>
-                  <Row weekDates={weekDates} data={data} />
-                </React.Fragment>
-              );
-            })}
-        </div>
-
-        {/* <div className="calendar__body">
-        {nextMonth.map((weekDates) => {
-          //console.log(weekDates);
-          return (
-            <React.Fragment key={JSON.stringify(weekDates)}>
-              <Row weekDates={weekDates} data={data} />
-            </React.Fragment>
-          );
-        })}
-      </div> */}
+        {renderMonths()}
       </div>
     </>
   );
-};
+}; */
+
+class Calendar extends React.Component {
+  weekdays = ["S", "M", "T", "W", "T", "F", "S"];
+
+  // const [headerMonth, setHeaderMonth] = useState(null);
+
+  state = { headerMonth: null, currentMonthRef: null };
+
+  getMonth = (month) => {
+    switch (month) {
+      case 0:
+        return "Jan";
+
+      case 1:
+        return "Feb";
+
+      case 2:
+        return "Mar";
+
+      case 3:
+        return "Apr";
+
+      case 4:
+        return "May";
+
+      case 5:
+        return "Jun";
+
+      case 6:
+        return "Jul";
+
+      case 7:
+        return "Aug";
+
+      case 8:
+        return "Sep";
+
+      case 9:
+        return "Oct";
+
+      case 10:
+        return "Nov";
+
+      case 11:
+        return "Dec";
+
+      default:
+        return "";
+    }
+  };
+
+  setHeaderMonth = (month) => {
+    this.setState({ headerMonth: month });
+  };
+
+  setCurrentMonthRef = (monthRef) => {
+    this.setState({ currentMonthRef: monthRef });
+  };
+
+  renderMonths = () => {
+    return this.props.months.map((month, index) => {
+      //console.log(month);
+
+      return (
+        <CalandarBody
+          key={index}
+          month={month}
+          setHeaderMonth={this.setHeaderMonth}
+          setCurrentMonthRef={this.setCurrentMonthRef}
+        ></CalandarBody>
+      );
+    });
+  };
+
+  componentDidMount() {
+    //console.log(this.state.currentMonthRef);
+    const currentMonthNode = this.state.currentMonthRef?.current;
+    if (currentMonthNode) currentMonthNode.scrollIntoView();
+  }
+
+  render() {
+    return (
+      <>
+        <TopHeader
+          headerMonth={this.getMonth(this.state.headerMonth)}
+        ></TopHeader>
+
+        <div className="calendar">
+          <div className="calendar__header">
+            {this.weekdays.map((weekday, index) => {
+              return (
+                <div className="calendar__weekday " key={index}>
+                  {weekday}
+                </div>
+              );
+            })}
+          </div>
+
+          {this.renderMonths()}
+        </div>
+      </>
+    );
+  }
+}
 
 export default Calendar;

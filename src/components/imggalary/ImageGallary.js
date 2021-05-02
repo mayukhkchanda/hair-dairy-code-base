@@ -1,12 +1,13 @@
 import React from "react";
 import ImageCard from "./ImageCard";
 import "./imageGallary.css";
+import { imageSelected } from "../../actions";
 
 import { connect } from "react-redux";
 
 class ImageGallary extends React.Component {
   componentDidUpdate() {
-    console.log(this.props.imagesList);
+    //console.log(this.props.imagesList);
     this.props.imageNode.current.scrollIntoView();
   }
 
@@ -29,7 +30,19 @@ class ImageGallary extends React.Component {
         );
       });
 
-    return <div className="image__slider">{renderedList}</div>;
+    return (
+      <div className="image__slider">
+        <div className="top-right">
+          <button
+            className="button"
+            onClick={() => this.props.imageSelected(null)}
+          >
+            <span className="button-text">&times;</span>
+          </button>
+        </div>
+        {renderedList}
+      </div>
+    );
   }
 }
 
@@ -38,4 +51,4 @@ const mapStateToProps = (state) => {
   return { imageNode: state.imageNode, imagesList: state.imagesObjList };
 };
 
-export default connect(mapStateToProps)(ImageGallary);
+export default connect(mapStateToProps, { imageSelected })(ImageGallary);
