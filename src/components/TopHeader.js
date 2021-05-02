@@ -1,7 +1,7 @@
 import React from "react";
 import "./TopHeader.css";
 
-const TopHeader = () => {
+const TopHeader = ({ month }) => {
   return (
     <div className="top-header">
       <div className="left-floated">
@@ -9,8 +9,8 @@ const TopHeader = () => {
         <span className="bold">&nbsp;hair dairy</span>
       </div>
       <div className="right-floated">
-        <span className="bold">Nov</span>
-        <span className="medium">&nbsp;2020</span>
+        <span className="bold">{month}</span>
+        <span className="medium">&nbsp;2021</span>
       </div>
     </div>
   );

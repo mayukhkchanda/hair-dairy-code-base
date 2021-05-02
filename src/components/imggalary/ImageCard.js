@@ -16,7 +16,7 @@ function ImageCard({
   gotImageRef,
   selectedImg,
 }) {
-  const cardRef = useRef();
+  const cardRef = useRef(null);
 
   const isVisible = OnVisible(cardRef);
 

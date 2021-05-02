@@ -7,9 +7,9 @@ import { datesGenerator } from "dates-generator";
 import { connect } from "react-redux";
 
 const App = (selectedImage) => {
-  const [Dates, setDates] = useState([]);
-  const [PreviousMonth, setPreviousMonth] = useState([]);
-  const [NextMonth, setNextMonth] = useState([]);
+  const [Dates, setDates] = useState({});
+  const [PreviousMonth, setPreviousMonth] = useState({});
+  const [NextMonth, setNextMonth] = useState({});
 
   useEffect(() => {
     const today = new Date();
@@ -33,26 +33,35 @@ const App = (selectedImage) => {
 
     //console.log(dates);
 
-    setDates(dates);
-    setPreviousMonth(
-      datesGenerator({ year: thisYear, month: previousMonth, startingDay: 0 })
-        .dates
-    );
-    setNextMonth(
-      datesGenerator({ thisYear, thisMonth: nextMonth, startingDay: 0 }).dates
-    );
+    setDates({ dates: dates, forMonth: thisMonth });
+    setPreviousMonth({
+      dates: datesGenerator({
+        year: thisYear,
+        month: previousMonth,
+        startingDay: 0,
+      }).dates,
+      forMonth: previousMonth,
+    });
+    setNextMonth({
+      dates: datesGenerator({
+        year: thisYear,
+        month: nextMonth,
+        startingDay: 0,
+      }).dates,
+      forMonth: nextMonth,
+    });
   }, []);
 
   let displayEl = null;
 
-  //console.log(selectedImage);
+  //console.log(Dates);
 
   if (selectedImage.image) {
     displayEl = <ImageGallary></ImageGallary>;
   } else {
     displayEl = (
       <Calendar
-        dates={Dates}
+        currentMonth={Dates}
         previousMonth={PreviousMonth}
         nextMonth={NextMonth}
       />
