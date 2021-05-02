@@ -89,8 +89,7 @@ class Calendar extends React.Component {
               );
             })}
           </div>
-
-          {this.renderMonths()}
+          <div className="calendar_body_container">{this.renderMonths()}</div>
         </div>
       </>
     );

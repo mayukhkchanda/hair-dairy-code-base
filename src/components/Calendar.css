@@ -11,14 +11,18 @@
   font-weight: 500;
   position: fixed;
   background-color: #fff;
-  padding: 2px 0px;
   z-index: 1;
   top: 39px;
-  padding: 4px 0px;
+  padding: 12px 0px;
 }
 
 .calendar__weekday {
   width: 54px;
+}
+
+.calendar_body_container {
+  position: relative;
+  top: 22px;
 }
 
 .calendar__body {
@@ -53,6 +57,12 @@
   right: -0.9px;
 }
 @media all and (max-width: 500px) and (min-width: 376px) {
+  .calendar__header {
+    width: 100%;
+    justify-content: space-around;
+    align-items: center;
+  }
+
   .calendar__weekday {
     width: 59px;
   }
