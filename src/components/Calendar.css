@@ -13,6 +13,8 @@
   background-color: #fff;
   padding: 2px 0px;
   z-index: 1;
+  top: 39px;
+  padding: 4px 0px;
 }
 
 .calendar__weekday {
@@ -46,19 +48,24 @@
 .plus-text {
   font-size: 50px;
   position: absolute;
-  bottom: -5px;
+  bottom: -6px;
   color: #fff;
   right: -0.9px;
 }
-
-@media all and (min-width: 700px) {
+@media all and (max-width: 500px) and (min-width: 376px) {
   .calendar__weekday {
-    width: 101px;
+    width: 59px;
   }
 }
 
 @media all and (max-width: 700px) and (min-width: 500px) {
   .calendar__weekday {
     width: 14vw;
+  }
+}
+
+@media all and (min-width: 700px) {
+  .calendar__weekday {
+    width: 101px;
   }
 }
