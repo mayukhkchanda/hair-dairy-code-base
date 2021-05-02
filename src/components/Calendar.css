@@ -13,7 +13,7 @@
   background-color: #fff;
   z-index: 1;
   top: 39px;
-  padding: 12px 0px;
+  padding: 9px 0px;
 }
 
 .calendar__weekday {
@@ -22,7 +22,7 @@
 
 .calendar_body_container {
   position: relative;
-  top: 22px;
+  top: 10px;
 }
 
 .calendar__body {
